@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: ["main", "develop" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   laravel-tests:
@@ -26,6 +26,13 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+        
+    - name: Installing Package.json
+      run: npm install
+      
+    - name: Build Assets
+      run: npm run build
+        
     - name: Execute tests (Unit and Feature tests) via PEST
       env:
         DB_CONNECTION: sqlite
